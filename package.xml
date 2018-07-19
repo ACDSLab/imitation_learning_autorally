@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<package>
+  <name>imitation_learning_autorally</name>
+  <version>0.1.0</version>
+  <description>Imitation learning for the AutoRally platform</description>
+
+  <maintainer email="klee698@gatech.edu">Keuntaek Lee</maintainer>
+
+  <license>Apachei License 2.0</license>
+  <url type="repository">https://github.com/ACDSlab/imitation_learning_autorally</url>
+
+  <author email="klee698@gatech.edu">Keuntaek Lee</author>
+  <author email="kamilsaigol@gatech.edu">Kamil Saigol</author>
+  <author email="ypan37@gatech.edu">Yunpeng Pan</author>
+  <author email="gan9@gatech.edu">Gabriel Nakajima An</author>
+
+  <!-- The *_depend tags are used to specify dependencies -->
+  <!-- Dependencies can be catkin packages or system dependencies -->
+  <!-- Examples: -->
+  <!-- Use build_depend for packages you need at compile time: -->
+  <!--   <build_depend>message_generation</build_depend> -->
+  <!-- Use buildtool_depend for build tool packages: -->
+  <!--   <buildtool_depend>catkin</buildtool_depend> -->
+  <!-- Use run_depend for packages you need at runtime: -->
+  <!--   <run_depend>message_runtime</run_depend> -->
+  <!-- Use test_depend for packages you need only for testing: -->
+  <!--   <test_depend>gtest</test_depend> -->
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>autorally_control</build_depend>
+  <build_depend>autorally_core</build_depend>
+  <build_depend>autorally_gazebo</build_depend>
+  <build_depend>autorally_msgs</build_depend>
+  <build_depend>keyboard</build_depend>
+  <build_depend>rospy</build_depend>
+  <build_depend>ros_numpy</build_depend>
+  <run_depend>autorally_control</run_depend>
+  <run_depend>autorally_core</run_depend>
+  <run_depend>autorally_gazebo</run_depend>
+  <run_depend>autorally_msgs</run_depend>
+  <run_depend>keyboard</run_depend>
+  <run_depend>rospy</run_depend>
+  <run_depend>ros_numpy</run_depend>
+
+  <export>
+  </export>
+</package>

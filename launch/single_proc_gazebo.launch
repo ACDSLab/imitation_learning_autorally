@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+
+<launch>
+
+<!-- AutoRally -->
+<include file="$(find autorally_core)/launch/hardware.machine" />
+
+  <!-- image proc for left camera -->
+  <!--
+  <node pkg="image_proc" type="image_proc" ns="left_camera" name="image_proc" output="screen">
+    <remap from="image_raw" to="image_color" />
+  </node>
+  -->
+
+  <!-- crop and decimate nodelet for left camera -->
+  <node pkg="nodelet" type="nodelet" args="standalone image_proc/crop_decimate" name="left_decimator" output="screen">
+    <!-- 128x128 sky & track -->
+    <!--
+    <param name="decimation_x" type="int" value="10" />
+    <param name="decimation_y" type="int" value="8" />
+    -->
+
+    <!-- 160x80 track only -->
+    <param name="decimation_x" type="int" value="8" />
+    <param name="decimation_y" type="int" value="4" />
+    <param name="y_offset" type="int" value="340" />
+    <param name="height" type="int" value ="320" />
+
+    <!-- inputs -->
+    <!-- image_mono - mono image from image_proc -->
+    <!-- image_rect - rectified mono image from image_proc -->
+    <!-- image_color - color image from image_proc -->
+    <!-- image_rect_color - rectified color image from image_proc -->
+    <!-- replace as needed -->
+    <remap from="camera/image_raw" to="/left_camera/image_raw"/>
+    <remap from="camera/camera_info" to="/left_camera/camera_info"/>
+
+    <!-- outputs -->
+    <remap from="camera_out/image_raw" to="/left_camera/cropped_image_color"/>
+    <remap from="camera_out/camera_info" to="/left_camera/cropped_camera_info"/>
+  </node>
+
+  <!-- crop and decimate nodelet for left camera -->
+  <node pkg="nodelet" type="nodelet" args="standalone image_proc/crop_decimate" name="right_decimator" output="screen">
+    <!-- 128x128 sky & track -->
+    <!--
+    <param name="decimation_x" type="int" value="10" />
+    <param name="decimation_y" type="int" value="8" />
+    -->
+
+    <!-- 160x80 track only -->
+    <param name="decimation_x" type="int" value="8" />
+    <param name="decimation_y" type="int" value="4" />
+    <param name="y_offset" type="int" value="340" />
+    <param name="height" type="int" value ="320" />
+
+    <!-- inputs -->
+    <!-- image_mono - mono image from image_proc -->
+    <!-- image_rect - rectified mono image from image_proc -->
+    <!-- image_color - color image from image_proc -->
+    <!-- image_rect_color - rectified color image from image_proc -->
+    <!-- replace as needed -->
+    <remap from="camera/image_raw" to="/right_camera/image_raw"/>
+    <remap from="camera/camera_info" to="/right_camera/camera_info"/>
+
+    <!-- outputs -->
+    <remap from="camera_out/image_raw" to="/right_camera/cropped_image_color"/>
+    <remap from="camera_out/camera_info" to="/right_camera/cropped_camera_info"/>
+  </node>
+</launch>

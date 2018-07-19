@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+
+<launch>
+
+<!-- AutoRally -->
+<include file="$(find autorally_core)/launch/hardware.machine" />
+
+<arg name="model" default="None" />
+<arg name="data" default="None" />
+
+<node name="imlearn" pkg="imitation_learning_autorally" ns="imlearn" type="ex_autorally_mppi.py" output="screen">
+
+  <!-- paths -->
+  <param name="model_dir" value="$(find imitation_learning_autorally)/models" />
+  <param name="data_dir" value="$(find imitation_learning_autorally)/data" />
+  <param name="log_dir" value="$(find imitation_learning_autorally)/logs" />
+
+  <!-- filenames -->
+  <param name="model" value="$(arg model)" />
+  <param name="data" value="$(arg data)" />
+
+  <!-- update autonomous mode via keyboard -->
+  <param name="use_keyboard" type="bool" value="true" />
+
+  <!-- step update rate should try to meet expert control publishing rate -->
+  <param name="rate_hz" type="int" value="50" />
+
+  <!-- give added time (seconds) to allow human expert to get ready -->
+  <param name="human_delay" type="int" value="10" />
+
+  <!-- dimensions -->
+  <param name="batch_size" type="int" value="64" />
+  <param name="dim_act" type="int" value="2" /> <!-- Size of control vector -->
+  <rosparam param="dim_img">[80, 160, 3]</rosparam>
+  <param name="dim_ws" type="int" value="4" />
+  <param name="dim_imu" type="int" value="6" />
+
+  <!-- algorithm params -->
+  <param name="nb_epoch" type="int" value="20" />
+  <param name="pretrain_epoch" type="int" value="30" />
+  <param name="timesteps_test" type="int" value="3000" />  <!-- Test Expert & Learner-->
+  <param name="rollouts_test" type="int" value="1" />  <!-- Test Expert & Learner -->
+  <param name="iterations" type="int" value="5" />  <!-- DAgger iterations -->
+  <param name="timesteps" type="int" value="30" /> <!-- Timesteps per rollout -->
+  <param name="rollouts" type="int" value="1" /> <!-- Number of rollouts -->
+  <param name="shuffle" type="bool" value="true" />
+  <param name="mixing_rate" value="0.6" />
+  <param name="use_human" type="bool" value="false" />
+  <param name="test_expert" type="bool" value="false" />
+  <param name="test_initial" type="bool" value="false" />
+  <param name="mix_within_rollout" type="bool" value="true" />
+  <param name="clamp_control" type="bool" value="false" />
+  <param name="freeze_weights" type="bool" value="false" />
+  <param name="test_initial" type="bool" value="false" />
+  <param name="timesteps_initial" type="int" value="3000" />
+  <param name="rollouts_initial" type="int" value="1" />
+  <param name="test_policy" type="bool" value="false" /> <!-- Test Learner after every Dagger iteration-->
+  <param name="pretrain" type="bool" value="true" />
+  <param name="timesteps_pretrain" type="int" value="9000" />
+  <param name="rollouts_pretrain" type="int" value="1" />
+  <param name="test_final" type="bool" value="false" />
+  <param name="timesteps_final" type="int" value="3000" />
+  <param name="rollouts_final" type="int" value="1" />
+
+  <!-- control limits -->
+  <rosparam param="throttle_limits">[-0.99, 0.99]</rosparam>
+  <rosparam param="steering_limits">[-0.99, 0.99]</rosparam>
+
+  <!-- subscribed topics -->
+  <param name="chassis_topic" value="/chassisState" />
+  <param name="image_left_topic" value="/left_camera/cropped_image_color" />
+  <param name="image_right_topic" value="/right_camera/cropped_image_color" />
+  <param name="imu_topic" value="/imu/imu" />
+  <param name="wheelspeed_topic" value="/wheelSpeeds" />
+  <param name="keyboard_autonomous_topic" value="/keyboard/keydown" />
+  <param name="runstop_topic" value="/runstop" /> <!-- /runstop, /runstopBox-->
+
+  <!-- published topics -->
+  <param name="control_topic" value="chassisCommand" />
+
+</node>
+</launch>

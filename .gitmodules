@@ -1,0 +1,4 @@
+[submodule "src/imitation_learning"]
+	path = src/imitation_learning
+	url = https://github.com/ACDSLab/imitation_learning.git
+	branch = master
