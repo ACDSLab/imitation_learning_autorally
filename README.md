@@ -12,28 +12,37 @@ First, visit the [AutoRally website](https://autorally.github.io) to install and
 
 1. Clone this repository into the `src` subdirectory of your catkin workspace, making sure to pass the `--recursive` flag to pull in the imlearn library.
 
-   `git clone --recursive https://github.com/ACDSlab/imitation_learning_autorally.git`
-   
-2. Change to the catkin workspace and install dependencies.
+    `git clone --recursive https://github.com/ACDSlab/imitation_learning_autorally.git`
+
+2. Make sure the submodule repository `src/imitation_learning` follows the `master` branch (sometimes there is a bug).
+	```
+    cd ~/$your_catkin_workspace$/src/imitation_learning_autorally/src/imitation_learning/
+    git checkout master
+	```
+	
+3. Change to the catkin workspace and install dependencies.
 
 	`rosdep install --from-path src --ignore-src -y`
 
-3. Compile the workspace.
+4. To use the keyboard package, clone [this repository](https://github.com/lrse/ros-keyboard) into the `src` subdirectory of your catkin workspace.
+
+    `git clone https://github.com/lrse/ros-keyboard`
+
+5. Compile the workspace.
 
 	`catkin_make -DCMAKE_BUILD_TYPE=Release`
-    
-4. Follow the instruction 4 and 6 in the [AutoRally Setup Instructions](https://github.com/AutoRally/autorally).
 
-5. Make `models`, `data`, and `logs` folders in the home repository
+6. Follow the instruction 4 and 6 in the [AutoRally Setup Instructions](https://github.com/AutoRally/autorally).
 
-6. In every terminal, don't forget to
+7. Make `models`, `data`, and `logs` folders in the home repository(`~/$your_catkin_workspace$/src/imitation_learning_autorally`).
+
+8. In every terminal, at your catkin workspace, don't forget to
 	```
 	source devel/setup.bash
 	source src/autorally_private/autorally_private_sandbox/setupEnvLocal.sh
 	```
-	at catkin workspace.
 
-7. Launch the AutoRally simulation environment, the camera processing node, and the keyboard node.
+9. Launch the AutoRally simulation environment, the camera processing node, and the keyboard node.
 
 	```
     roslaunch autorally_gazebo autoRallyTrackGazeboSim.launch
@@ -57,7 +66,7 @@ You can read the control rostopic `/mppi_controller/chassisCommand` but the vehi
 ```
 roslaunch imitation_learning_autorally autorally_mppi.launch
 ```
-If you are asked to `switch to MANUAL mode`, make the [keyboard](http://wiki.ros.org/keyboard) window focused and press `m` on your keyboard.
+If you are asked to `switch to MANUAL mode`, make the [keyboard](https://github.com/lrse/ros-keyboard) window focused and press `m` on your keyboard.
 
 If you are asked to `switch to AUTONOMOUS mode`, make the keyboard window focused and press `a` on your keyboard.
 
@@ -74,3 +83,4 @@ Keuntaek Lee, Kamil Saigol, Gabriel Nakajima An, Yunpeng Pan, Xinyan Yan
 If you use this software in your work, please cite:
 
 **Agile Off-Road Autonomous Driving Using End-to-End Deep Imitation Learning.** Y. Pan, C. Cheng, K. Saigol, K. Lee,  X. Yan, E. Theodorou and B. Boots.  Robotics: Science and Systems (2018).
+
