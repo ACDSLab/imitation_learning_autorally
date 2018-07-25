@@ -6,7 +6,7 @@ from ros_util import ROSLogging
 from autorally_expert_mppi import AutoRallyExpertMPPI
 from autorally_environment import AutoRally
 from imitation_learning.dagger import dagger
-from imitation_learning.learners import KerasLearner, TFLearner
+from imitation_learning.learners import KerasLearner
 from nn import keras_dnn_ws
 
 

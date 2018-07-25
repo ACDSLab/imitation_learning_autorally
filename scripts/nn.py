@@ -3,7 +3,7 @@ import numpy as np
 from keras.models import Sequential, Model
 from keras.layers import Dense, Dropout, Flatten
 from keras.layers import Conv2D, MaxPooling2D
-from keras.layers import Merge, Input, Convolution2D, concatenate
+from keras.layers import Input, Convolution2D, concatenate
 
 
 def keras_dnn_ws(d_img, d_ws, d_act):
